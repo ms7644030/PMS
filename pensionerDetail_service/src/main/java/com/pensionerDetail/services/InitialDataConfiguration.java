@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.pensionerDetail.entities.Bankdetail;
@@ -49,11 +51,13 @@ public class InitialDataConfiguration {
 	public void postConstruct() {
 		
         CSVReader reader;
+       // CSVParser parser = new CSVParserBuilder().withSeparator('\t').build();
 		
 		try {
 			reader = new CSVReaderBuilder(new FileReader("D:\\pensionerDetail_service\\src\\main\\resources\\pensionerDetail.csv")).
-			        withSkipLines(1). 
+			        withSkipLines(1).
 			        build();
+			
 			List<String[]> allData = reader.readAll();
 			
 			for (String[] row : allData) {
@@ -66,7 +70,7 @@ public class InitialDataConfiguration {
 			
 			 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -85,10 +89,12 @@ public class InitialDataConfiguration {
 			pensioner.setSalaryEarned(Double.parseDouble(values[4]));
 			pensioner.setAllowances(Double.parseDouble(values[5]));
 			pensioner.setSelfOrFamily(values[6]);
+			
 			bankdetail.setAadhaar_number(Long.parseLong(values[0]));
 			bankdetail.setAccount_number(values[8]);
 			bankdetail.setBank_name(values[7]);
-			bankdetail.setPublicOrprivate_bank(values[9]);			
+			bankdetail.setPublicOrprivate_bank(values[9]);	
+			
 			pensionerDetail.setPensioner(pensioner);
 			pensionerDetail.setBankdetail(bankdetail);
 						

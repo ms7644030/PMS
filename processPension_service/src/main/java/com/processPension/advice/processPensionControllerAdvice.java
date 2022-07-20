@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+
+import com.processPension.customException.BusinessException;
 
 @RestControllerAdvice
 public class processPensionControllerAdvice {
@@ -48,6 +52,24 @@ public class processPensionControllerAdvice {
     public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException noSuchElementException){
 		
 		return new ResponseEntity<>("Details are not available in DB", HttpStatus.NOT_FOUND);
+	}
+	
+	/*@ExceptionHandler(RestClientException.class)
+    public ResponseEntity<String> handleRestClientException(RestClientException restClientException){
+		
+		return new ResponseEntity<>("Rest client", HttpStatus.BAD_GATEWAY);
+	}
+	*/
+	/*@ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<String> handleHttpClientErrorException(HttpClientErrorException httpClientErrorException){
+		
+		return new ResponseEntity<>("Http client", HttpStatus.BAD_REQUEST);
+	}
+	*/
+	@ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handleBusinessException(BusinessException businessException){
+		
+		return new ResponseEntity<>(businessException.getErrorMessage(), HttpStatus.BAD_REQUEST);
 	}
 	
 

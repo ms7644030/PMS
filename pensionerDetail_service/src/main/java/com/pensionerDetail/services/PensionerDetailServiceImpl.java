@@ -23,10 +23,7 @@ public class PensionerDetailServiceImpl implements PensionerDetailService {
 	private PensionerRepo pensionerRepository;
 	@Autowired
 	private BankDetailRepo bankdetailRepository;
-	@Autowired 
-	private Pensioner pensioner;
-	@Autowired
-	private Bankdetail bankdetail;
+	
 	@Autowired
 	private PensionerDetail pensionerDetail;
 	
@@ -34,8 +31,8 @@ public class PensionerDetailServiceImpl implements PensionerDetailService {
 	@Override
 	public PensionerDetail getPensionerDetailByAadhaar(Long aadhaar) {
 		
-		pensioner = pensionerRepository.findById(aadhaar).get();
-		bankdetail = bankdetailRepository.findById(aadhaar).get();
+		Pensioner pensioner = pensionerRepository.findById(aadhaar).get();
+		Bankdetail bankdetail = bankdetailRepository.findById(aadhaar).get();
 		
 		pensionerDetail.setPensioner(pensioner);
 		pensionerDetail.setBankdetail(bankdetail);
@@ -47,10 +44,13 @@ public class PensionerDetailServiceImpl implements PensionerDetailService {
 	@Override
 	public PensionerDetail savePensionerDetail(PensionerDetail pd) {
 		
-		   pensionerRepository.save(pd.getPensioner());
-		   bankdetailRepository.save(pd.getBankdetail());
+		  Pensioner pensioner =  pensionerRepository.save(pd.getPensioner());
+		  Bankdetail bankdetail = bankdetailRepository.save(pd.getBankdetail());
 		   
-		return getPensionerDetailByAadhaar(pd.getPensioner().getAadhaar_number());
+		   pensionerDetail.setPensioner(pensioner);
+		   pensionerDetail.setBankdetail(bankdetail);
+		   
+		   return pensionerDetail;
 	}
 	
 	
@@ -65,12 +65,13 @@ public class PensionerDetailServiceImpl implements PensionerDetailService {
 		
 		for (Pensioner pn : pensioners) {
 			
-			bankdetail = bankdetailRepository.findById(pn.getAadhaar_number()).get();
+			Bankdetail bankdetail = bankdetailRepository.findById(pn.getAadhaar_number()).get();
+			PensionerDetail pd = new PensionerDetail();
 			
-			pensionerDetail.setPensioner(pn);
-			pensionerDetail.setBankdetail(bankdetail);
+			pd.setPensioner(pn);
+			pd.setBankdetail(bankdetail);
 			
-			pensionersDetail.add(pensionerDetail);
+			pensionersDetail.add(pd);
 						
 		}
 		

@@ -47,7 +47,7 @@ public class PensionerDetailControllerAdvice {
 	@ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException noSuchElementException){
 		
-		return new ResponseEntity<>("Details are not available in DB", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Invalid", HttpStatus.OK);
 	}
 	
 	

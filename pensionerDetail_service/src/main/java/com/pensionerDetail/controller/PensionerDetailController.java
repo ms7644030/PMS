@@ -22,32 +22,30 @@ public class PensionerDetailController {
 	@Autowired
 	private PensionerDetailService pensionerDetailService;
 	
-	@Autowired
-	private PensionerDetail pensionerDetail;
 	
 	@GetMapping("/{aadhar_number}")
 	public ResponseEntity<PensionerDetail> getPensionerDetail(@PathVariable("aadhar_number") Long aadhaar_number ) {
 		
 		
-		pensionerDetail =  pensionerDetailService.getPensionerDetailByAadhaar(aadhaar_number);
+		PensionerDetail pensionerDetail =  pensionerDetailService.getPensionerDetailByAadhaar(aadhaar_number);
 		
 		return new ResponseEntity<PensionerDetail>(pensionerDetail, HttpStatus.OK);
 	}
 	
-	@PostMapping("/pensioner")
-	 public PensionerDetail savePensionerDetails(@RequestBody PensionerDetail pensionerDetail ) {
+	@PostMapping("/save")
+	 public PensionerDetail savePensionerDetail(@RequestBody PensionerDetail pensionerDetail ) {
 		 
 		 return pensionerDetailService.savePensionerDetail(pensionerDetail);
 	 }
 	
-	@GetMapping("/pensioners")
-	public List<PensionerDetail> getPensionersDetail() {
+	@GetMapping("/all" )
+	public ResponseEntity<List<PensionerDetail>> retrieveAllPensionerDetail() {
 		
 		
-		//pensionerDetail = 
-		return pensionerDetailService.getPensionersDetail();
+		List<PensionerDetail> list= pensionerDetailService.getPensionersDetail();
 		
-		//return new ResponseEntity<PensionerDetail>(pensionerDetail, HttpStatus.OK);
+		return new ResponseEntity<List<PensionerDetail>>(list, HttpStatus.OK);
+		
 	}
 	
 	
