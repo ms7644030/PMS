@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+       - id: pensioner-detail-service
+         uri: lb://PENSIONER-DETAIL-SERVICE
+         predicates:
+           - Path=/pensionerDetail/**
+         filters:
+            - name: CicuitBreaker
+              args:
+                name: pensioner-detail-service
+                fallbackuri: forward:/pdFallBack 
+      
+       - id: process-pension
+         uri: lb://PROCESS-PENSION-SERVICE
+         predicates:
+           - Path=/processPension/**
+         filters:
+            - name: CicuitBreaker
+              args:
+                name: process-pension
+                fallbackuri: forward:/ppFallBack   
+      
+        
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost   
+     
+server:
+  port: 9002
+  
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+        
+
+        
+        
+hystrix:
+  command:  
+    fallbackcmd:
+      execution:
+        isolation: 
+          thread: 
+            timeoutInMilliseconds: 5000
+            
+           
+          
+            
