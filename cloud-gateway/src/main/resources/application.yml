@@ -8,24 +8,29 @@ spring:
          uri: lb://PENSIONER-DETAIL-SERVICE
          predicates:
            - Path=/pensionerDetail/**
-         filters:
-            - name: CicuitBreaker
-              args:
-                name: pensioner-detail-service
-                fallbackuri: forward:/pdFallBack 
+#         filters:
+#             - AuthenticationFilter
+#            - name: CicuitBreaker
+#              args:
+#                name: pensioner-detail-service
+#                fallbackuri: forward:/pdFallBack 
       
        - id: process-pension
          uri: lb://PROCESS-PENSION-SERVICE
          predicates:
            - Path=/processPension/**
-         filters:
-            - name: CicuitBreaker
-              args:
-                name: process-pension
-                fallbackuri: forward:/ppFallBack   
-      
+#         filters:
+#           - AuthenticationFilter
+#            - name: CicuitBreaker
+#              args:
+#                name: process-pension
+#                fallbackuri: forward:/ppFallBack   
+       - id: authentication
+         uri: lb://AUTHORIZATION-SERVICE
+         predicates:
+           - Path=/authenticate
         
-    
+  
 eureka:
   client:
     register-with-eureka: true
@@ -38,24 +43,13 @@ eureka:
 server:
   port: 9002
   
-  
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
-        
 
+       
         
-        
-hystrix:
-  command:  
-    fallbackcmd:
-      execution:
-        isolation: 
-          thread: 
-            timeoutInMilliseconds: 5000
-            
+  
+  
+#jwt:
+#  secret: testing
            
           
             

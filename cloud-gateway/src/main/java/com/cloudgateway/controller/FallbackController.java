@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Mono;
 
-@RestController
+//@RestController
 public class FallbackController {
-	
+	/*
 	//@HystrixCommand(fallbackMethod = "pensionerDetailFallBack")
 	@RequestMapping("/pdFallBack")
 	public Mono<String> pensionerDetailFallBack(){
@@ -22,5 +22,5 @@ public class FallbackController {
 		
 		return Mono.just("Process Pension Service is taking too long to respond or is down. Please try again later");
 	}
-
+*/
 }
