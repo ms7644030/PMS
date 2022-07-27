@@ -1,0 +1,14 @@
+export interface PensionerDetails{
+    aadhaar_number : number;
+    name: string;
+    dob: string;
+    pan_number: string;
+    salary_ernd:number;
+    allowances:number;
+    pension_type:string;
+    bank_name:string;
+    account_number:string;
+    bank_type:String;
+    pension_amount:number;
+    bank_charge:number
+}
