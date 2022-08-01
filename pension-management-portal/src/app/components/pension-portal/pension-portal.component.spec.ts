@@ -8,9 +8,8 @@ describe('PensionPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PensionPortalComponent ]
-    })
-    .compileComponents();
+      declarations: [PensionPortalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

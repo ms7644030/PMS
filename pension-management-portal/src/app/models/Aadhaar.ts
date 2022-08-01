@@ -1,4 +1,3 @@
-export interface Aadhaar{
-
-    aadhaar_number : number;
+export interface Aadhaar {
+  aadhaar_number: number;
 }

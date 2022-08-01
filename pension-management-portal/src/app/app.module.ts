@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PensionPortalComponent } from './components/pension-portal/pension-portal.component';
 import { AddPensionerComponent } from './components/add-pensioner/add-pensioner.component';
-import { ViewPensionerComponent } from './components/view-pensioner/view-pensioner.component';
+import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PensionService } from './services/pension.service';
+import { LoginComponent } from './components/login/login.component';
+import { AuthServiceService } from './services/auth-service.service';
+import { TokenstorageService } from './services/tokenstorage.service';
 
 @NgModule({
   declarations: [
@@ -15,14 +20,17 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     NavbarComponent,
     PensionPortalComponent,
     AddPensionerComponent,
-    ViewPensionerComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [PensionService, AuthServiceService, TokenstorageService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

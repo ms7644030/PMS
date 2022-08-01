@@ -1,6 +1,4 @@
-
-export interface PensionDetail{
-
-    pensionAmount: number;
-    bankServiceCharge: number;
+export interface PensionDetail {
+  pensionAmount: number;
+  bankServiceCharge: number;
 }
