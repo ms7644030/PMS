@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { TokenstorageService } from 'src/app/services/tokenstorage.service';
 import { Router } from '@angular/router';
+import { JwtToken } from 'src/app/models/JwtToken';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,8 +15,8 @@ export class LoginComponent implements OnInit {
   };
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
-  roles: string[] = [];
+  public errorMessage: string | null = null;
+  //roles: string[] = [];
   loading: boolean = false;
 
   constructor(
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      // this.roles = this.tokenStorage.getUser().roles;
     }
   }
 
@@ -36,22 +37,24 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     this.authService.login(username, password).subscribe({
-      next: (data) => {
-        this.tokenStorage.saveToken(data.accessToken);
+      next: (data: JwtToken) => {
+        this.tokenStorage.saveToken(data.jwt);
         this.tokenStorage.saveUser(data);
+        console.log(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+        //  this.roles = this.tokenStorage.getUser().roles;
+        // this.reloadPage();
         this.loading = false;
+        alert('Logged in as admin!');
         this.router.navigate(['/pensioner/admin']).then();
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
+      error: (error) => {
+        this.errorMessage = error.error.message;
         this.isLoginFailed = true;
         this.loading = false;
-        this.router.navigate(['/pensioner/admin']).then();
+        //  this.router.navigate(['/pensioner/admin']).then();
       },
     });
   }

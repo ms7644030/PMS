@@ -18,9 +18,9 @@ export class NavbarComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
 
-        //console.log(this.currentUrl);
+        console.log(this.currentUrl);
 
-        if (this.currentUrl === '/pensioner/login') {
+        if (this.currentUrl === '/pensioner/login' || this.currentUrl === '/') {
           this.isitloginpage = true;
         } else {
           this.isitloginpage = false;
@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
   clickMethod() {
     if (confirm('Are you sure to logout ')) {
+      window.sessionStorage.clear();
       this.router.navigate(['/pensioner/login']).then();
     }
   }

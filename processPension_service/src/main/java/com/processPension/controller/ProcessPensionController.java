@@ -1,6 +1,7 @@
 package com.processPension.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.processPension.entities.ProcessPensionInput;
 import com.processPension.services.ProcessPensionService;
 
 @RestController
+//@CrossOrigin(origins="*")
 @RequestMapping("/processPension")
 public class ProcessPensionController {
 	

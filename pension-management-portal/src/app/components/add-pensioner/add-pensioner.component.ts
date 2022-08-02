@@ -51,6 +51,7 @@ export class AddPensionerComponent implements OnInit {
       Name: new FormControl(null, [
         Validators.required,
         Validators.minLength(4),
+        Validators.pattern('[a-zA-Z ]*$'),
       ]),
       DateOfBirth: new FormControl(null, [Validators.required]),
 
